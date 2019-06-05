@@ -7,11 +7,11 @@
 	[{"maxAgeSeconds": 3600, "method": ["GET", "POST", "PUT", "DELETE"], "origin": ["*"], "responseHeader": ["Content-Type", "x-goog-resumable"]}]
 	```
 
+2. `dep ensure` します
+
 ## How to deploy
 
-1. `dep ensure` します
-
-2. `gcloud app deploy` します
+1. `gcloud app deploy` します
 
 ## How to run local dev_appserver.py
 
