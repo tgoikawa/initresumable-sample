@@ -1,0 +1,31 @@
+<html>
+
+	<head>
+	<script>
+		fetch("./api/resumable-upload-url")
+			.then(res =>res.json())
+	.then(data => {
+		const headers = new Headers();
+		headers.append("x-goog-resumable","start");
+		headers.append("Content-Type","video/mp4");
+		fetch(data.url,{
+			mode:"cors",
+			method:"POST",
+			headers:headers,
+			body:null,
+		})
+			.then(res=>{
+				alert("finished");
+			})
+		
+	})
+	</script>
+
+	</head>
+
+	<body>
+
+
+	</body>
+
+</html>
