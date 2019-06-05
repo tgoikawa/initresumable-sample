@@ -15,6 +15,6 @@
 
 ## How to run local dev_appserver.py
 
-1. 環境変数 `GOOGLE_CLOUD_PROJECT` を設定します
+1. 環境変数 `GOOGLE_CLOUD_PROJECT` に自分のプロジェクトIDを設定します
 
 2. `dev_appserver app.yaml` を実行します
