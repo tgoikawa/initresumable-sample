@@ -2,6 +2,6 @@
 
 ## How to deploy
 
-- `dep ensure` します
+1. `dep ensure` します
 
-- `gcloud app deploy` します
+2. `gcloud app deploy` します
