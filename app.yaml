@@ -1,5 +1,5 @@
 runtime: go111
-service: initresumable
+#service: initresumable
 handlers:
   - url: /
     static_files: index.html

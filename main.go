@@ -15,11 +15,12 @@ import (
 	"net/http"
 )
 
-const (
-	googleAccessID string = "sandbox-kosukeoikawa@appspot.gserviceaccount.com"
-)
-
 func main() {
+	projectID := os.Getenv("GOOGLE_CLOUD_PROJECT")
+	if projectID == "" {
+		panic("projectID is empty")
+	}
+	googleAccessID := fmt.Sprintf("%s@appspot.gserviceaccount.com", projectID)
 	http.HandleFunc("/api/resumable-upload-url", func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		iamClient, err := admin.NewIamClient(ctx)
@@ -28,7 +29,7 @@ func main() {
 			w.WriteHeader(500)
 			return
 		}
-		signer := ServiceAccountSigner{Client: iamClient}
+		signer := ServiceAccountSigner{Client: iamClient, GoogleAccessID: googleAccessID}
 
 		url, err := storage.SignedURL("resumable_test", "object1", &storage.SignedURLOptions{
 			GoogleAccessID: googleAccessID,
@@ -70,12 +71,13 @@ func main() {
 }
 
 type ServiceAccountSigner struct {
-	Client *admin.IamClient
+	Client         *admin.IamClient
+	GoogleAccessID string
 }
 
 func (s *ServiceAccountSigner) SignByte(ctx context.Context, b []byte) ([]byte, error) {
 	resp, err := s.Client.SignBlob(ctx, &adminpub.SignBlobRequest{
-		Name:        fmt.Sprintf("projects/%s/serviceAccounts/%s", "sandbox-kosukeoikawa", googleAccessID),
+		Name:        fmt.Sprintf("projects/%s/serviceAccounts/%s", "sandbox-kosukeoikawa", s.GoogleAccessID),
 		BytesToSign: b,
 	})
 
