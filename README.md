@@ -2,7 +2,7 @@
 
 ## Prepare
 
-1. 以下のcorsをGCSのバケットに設定します.
+1. 以下のcorsをGCSのバケット `resumable_test` に設定します.
 	```js
 		[{"maxAgeSeconds": 3600, "method": ["GET", "POST", "PUT", "DELETE"], "origin": ["*"], "responseHeader": ["Content-Type", "x-goog-resumable"]}]
 	```
